@@ -13,6 +13,9 @@ import android.widget.ImageView;
 /**
  * Created by Andy W on 2015-11-27.
  */
+
+//TODO Added in Picasso, CircleImageView, AndroidViewAnimations libraries
+//TODO Implement these things
 public class TeamsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
