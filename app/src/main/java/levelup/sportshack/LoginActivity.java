@@ -182,6 +182,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
+        } else if (TextUtils.isEmpty(password)){
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
         }
 
         if (cancel) {
@@ -219,13 +223,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             });
         }
     }
-
-    private void startMainActivity(){
-        finish();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-    }
-
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
@@ -323,6 +320,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
+
+    private void startMainActivity(){
+        finish();
+        // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TeamsActivity.class);
+        startActivity(intent);
+    }
+
 
 }
 

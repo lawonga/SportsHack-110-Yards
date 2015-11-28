@@ -43,6 +43,16 @@
         <activity android:name=".MainActivity"
             android:label="Welcome to SportsHack"/>
 
+
+        <activity android:name=".TeamsActivity"
+            android:label="Pick your TEAM!"/>
+
+        <activity android:name=".RoadActivity"
+            android:label="Pick your ROAD!"/>
+
+        <activity android:name=".QuestionsActivity"
+            android:label="ANSWER THIS QUESTION!"/>
+
         <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
