@@ -30,8 +30,13 @@ public class ChartActivity extends Activity {
 
         // Set dataset (actual data)
         ArrayList<BarEntry> yVal = new ArrayList<>();
-        yVal.add(new BarEntry(52, 0));
-        yVal.add(new BarEntry(72, 1));
+
+        // BarEntry
+        BarEntry barEntryNo = new BarEntry(32, 0);
+        BarEntry barEntryYes = new BarEntry(72, 1);
+
+        yVal.add(barEntryNo);
+        yVal.add(barEntryYes);
 
         // Grab from yVal
         BarDataSet barDataSet = new BarDataSet(yVal, "Question"); // TODO Change 'Question' to something meaningful
@@ -44,6 +49,18 @@ public class ChartActivity extends Activity {
 
 
         barChart.setData(barData);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        barEntryNo.setVal(80);
+        // yVal at 0 = NO, at 1 = YES
+        yVal.set(0, barEntryNo);
+
+        barChart.notifyDataSetChanged();
     }
 
 }

@@ -57,6 +57,7 @@
             android:label="Question results!"/>
 
         <service android:name="com.parse.PushService" />
+        <!-- OVERRIDE THIS FOR PUSH BROADCAST RECEIVER -->
         <receiver android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
             <intent-filter>
