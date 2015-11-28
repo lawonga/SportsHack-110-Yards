@@ -9,18 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 
 /**
  * Created by Andy W on 2015-11-27.
+ *
+ * Kind of like a demo... won't really be used....
+ *
  */
 public class MiscActivity extends AppCompatActivity {
+    /*
     Button add, push;
     int a = 5, b = 8;
     @Override
@@ -77,4 +77,5 @@ public class MiscActivity extends AppCompatActivity {
         });
 
     }
+    */
 }
