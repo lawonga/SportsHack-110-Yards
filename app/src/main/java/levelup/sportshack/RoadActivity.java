@@ -26,6 +26,9 @@ public class RoadActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), QuestionsActivity.class);
+                //TODO add functional game ID"s
+                intent.putExtra("game_id", 10599);
+                finish();
                 startActivity(intent);
             }
         });

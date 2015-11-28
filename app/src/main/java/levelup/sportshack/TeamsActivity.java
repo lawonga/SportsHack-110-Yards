@@ -66,6 +66,7 @@ public class TeamsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), RoadActivity.class);
                     intent.putExtra("name", name[position]);
+                    finish();
                     startActivity(intent);
                 }
             });

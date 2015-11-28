@@ -323,7 +323,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void startMainActivity(){
         finish();
-        // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        // Intent intent = new Intent(getApplicationContext(), MiscActivity.class);
         Intent intent = new Intent(getApplicationContext(), TeamsActivity.class);
         startActivity(intent);
     }

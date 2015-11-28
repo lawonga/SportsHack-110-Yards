@@ -34,7 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Game Question" />
+                android:text="Game Question"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
             <ImageView
                 android:id="@+id/questions_image"
@@ -49,7 +51,8 @@
                 android:layout_gravity="center"
                 android:text="Sample Question"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/question"/>
         </LinearLayout>
 
         <LinearLayout
@@ -59,14 +62,14 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/button0"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Button 1" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -81,14 +84,14 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Button 3" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

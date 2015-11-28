@@ -40,7 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name=".MiscActivity"
             android:label="Welcome to SportsHack"/>
 
 
@@ -52,6 +52,9 @@
 
         <activity android:name=".QuestionsActivity"
             android:label="ANSWER THIS QUESTION!"/>
+
+        <activity android:name=".ChartActivity"
+            android:label="Question results!"/>
 
         <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParsePushBroadcastReceiver"

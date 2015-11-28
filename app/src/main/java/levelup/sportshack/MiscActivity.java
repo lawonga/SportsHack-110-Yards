@@ -20,13 +20,13 @@ import com.parse.ParseQuery;
 /**
  * Created by Andy W on 2015-11-27.
  */
-public class MainActivity extends AppCompatActivity {
+public class MiscActivity extends AppCompatActivity {
     Button add, push;
     int a = 5, b = 8;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(MainActivity.this, "WELCOME TO SPORTSHACK", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MiscActivity.this, "WELCOME TO SPORTSHACK", Toast.LENGTH_SHORT).show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.main_activity);
         add = (Button)findViewById(R.id.add);
@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         push.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiscActivity.this);
                 alertDialog.setTitle("Set push message");
-                final EditText input = new EditText(MainActivity.this);
+                final EditText input = new EditText(MiscActivity.this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
