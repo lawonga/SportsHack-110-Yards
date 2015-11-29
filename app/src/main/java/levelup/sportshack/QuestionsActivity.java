@@ -3,6 +3,7 @@ package levelup.sportshack;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -89,6 +90,23 @@ public class QuestionsActivity extends Activity {
                         btn_answer1.setText(answer1);
                         btn_answer2.setText(answer2);
                         btn_answer3.setText(answer3);
+
+                        new CountDownTimer(timer*1000, 1000){
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                tv_timer.setText(String.valueOf((millisUntilFinished / 1000)));
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                // Go to next screen.
+                                Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                                intent.putExtra("game_id", game_id);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }.start();
 
                         // Click listeners
                         btn_answer0.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +213,9 @@ public class QuestionsActivity extends Activity {
 
                     // Go to next screen.
                     Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                    intent.putExtra("game_id", game_id);
                     startActivity(intent);
+                    finish();
                 } catch (ParseException g) {
                     g.printStackTrace();
                     Log.e("PushError", e.toString());

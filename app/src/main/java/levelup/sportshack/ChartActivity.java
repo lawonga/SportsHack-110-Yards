@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -30,10 +31,14 @@ public class ChartActivity extends Activity {
     BarChart barChart;
     ParsePushBroadcastReceiver customReceiver;
     int[] points = {0,0,0,0};
+    int game_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chart_activity);
+        Intent previousIntent = getIntent();
+        Bundle previousBunde = previousIntent.getExtras();
+        game_id = previousBunde.getInt("game_id");
 
         // Add in the chart, and the properties
         barChart = (BarChart) findViewById(R.id.chart);
@@ -62,12 +67,12 @@ public class ChartActivity extends Activity {
         barArray.add(barDataSet);
 
         BarData barData = new BarData(barlist, barArray);
-
         barChart.setAutoScaleMinMaxEnabled(true);
         barChart.setData(barData);
 
         // On run action: Grab data from the servers!
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");
+        query.whereEqualTo("game_id", game_id);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -91,7 +96,7 @@ public class ChartActivity extends Activity {
                                 highestvalue = points[i];
                             }
                         }
-
+                        // ANIMATION MAY NOT WORK barChart.animateY(500, Easing.EasingOption.EaseInCirc);
                         barChart.notifyDataSetChanged();
                         barChart.invalidate();
                     }
@@ -120,6 +125,7 @@ public class ChartActivity extends Activity {
                 barEntry.setXIndex(answerchanged);
                 // heightVal at 0 = NO, at 1 = YES
                 heightVal.set(answerchanged, barEntry);
+                // ANIMATION MAY NOT WORK barChart.animateY(500, Easing.EasingOption.EaseInCirc);
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
             }
@@ -129,4 +135,8 @@ public class ChartActivity extends Activity {
         registerReceiver(customReceiver, new IntentFilter("broadcast"));
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

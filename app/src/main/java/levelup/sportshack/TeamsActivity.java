@@ -1,5 +1,6 @@
 package levelup.sportshack;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import levelup.sportshack.Dialogs.WelcomeDialog;
 
 /**
  * Created by Andy W on 2015-11-27.
@@ -23,6 +26,7 @@ public class TeamsActivity extends AppCompatActivity {
         setContentView(R.layout.teams_activity);
         GridView gridView = (GridView)findViewById(R.id.team_grid);
         gridView.setAdapter(new ImageAdapter(this));
+        getSupportActionBar().setElevation(0);
     }
 
     /** THIS IS THE IMAGEADAPATER **/
@@ -55,19 +59,20 @@ public class TeamsActivity extends AppCompatActivity {
                 imageView = new ImageView(mContext);
                 imageView.setLayoutParams(new GridView.LayoutParams(160, 160));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            }
-            else
-            {
+            } else {
                 imageView = (ImageView) convertView;
             }
             imageView.setImageResource(mThumbIds[position]);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), RoadActivity.class);
-                    intent.putExtra("name", name[position]);
-                    finish();
-                    startActivity(intent);
+                    Bundle args = new Bundle();
+                    args.putString("name", name[position]);
+                    args.putString("gift", gifts[position]);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    WelcomeDialog welcomeDialog = new WelcomeDialog();
+                    welcomeDialog.setArguments(args);
+                    welcomeDialog.show(fragmentManager, "new_team");
                 }
             });
             return imageView;
@@ -80,5 +85,10 @@ public class TeamsActivity extends AppCompatActivity {
 
     public String[] name = {
         "TiCats", "Canucks"
+    };
+
+    public String[] gifts = {
+        "GET A 10% DISCOUNT ON A SEASON PASS",
+        "GET A 25% DISCOUNT ON YOUR BEER"
     };
 }
