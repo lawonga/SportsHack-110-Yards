@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import levelup.sportshack.R;
@@ -18,6 +19,7 @@ import levelup.sportshack.RoadActivity;
 public class WelcomeDialog extends DialogFragment {
     TextView cancel, team_name, deal_text;
     String previousName, previousGift;
+    Button okay_button;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class WelcomeDialog extends DialogFragment {
         cancel = (TextView)view.findViewById(R.id.close_popup_reward);
         team_name = (TextView)view.findViewById(R.id.team_name);
         deal_text = (TextView)view.findViewById(R.id.deal);
+        okay_button = (Button)view.findViewById(R.id.welcome_okay);
 
 
         previousName = getArguments().getString("name");
@@ -37,10 +40,13 @@ public class WelcomeDialog extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RoadActivity.class);
-                intent.putExtra("name", previousName);
                 dismiss();
-                startActivity(intent);
+            }
+        });
+        okay_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
         return view;

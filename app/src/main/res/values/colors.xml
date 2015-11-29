@@ -3,9 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="standardText">#333333</color>
+    <color name="standardGrey">#333333</color>
     <color name="yellowBackground">#ffb614</color>
     <color name="helpBlue">#303F9F</color>
     <color name="whiteBackground">#FFFFFF</color>
     <color name="red">#FF0000</color>
+    <color name="transparent">#80000000</color>
+    <color name="lightred">#ff3b3b</color>
+
+    <!-- card colors -->
+    <color name="card_background">#ffffff</color>
+    <color name="card_shadow_1">#ececec</color>
+    <color name="card_shadow_2">#ececec</color>
+    <color name="card_detailing">#eee</color>
 </resources>

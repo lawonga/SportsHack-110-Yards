@@ -1,8 +1,10 @@
 package levelup.sportshack;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,10 +17,13 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
+import levelup.sportshack.Dialogs.WelcomeDialog;
+
 /**
  * Created by Andy W on 2015-11-27.
  */
-public class RoadActivity extends Activity {
+public class RoadActivity extends AppCompatActivity {
+    Boolean shown = false;
     public static boolean triggered = false;
     int game_id = 10599;
     int questionType;
@@ -30,9 +35,28 @@ public class RoadActivity extends Activity {
         Intent previousIntent = getIntent();
         Bundle previousBundle = previousIntent.getExtras();
         String chosenTeam = previousBundle.getString("name");
-        Toast.makeText(this, chosenTeam, Toast.LENGTH_LONG).show();
+        String gift = previousBundle.getString("gift");
         setContentView(R.layout.road_activity);
-        hotButton = (ImageView)findViewById(R.id.game4);
+        hotButton = (ImageView)findViewById(R.id.hotbox);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
+
+
+        Bundle args = new Bundle();
+        args.putString("name", chosenTeam);
+        args.putString("gift", gift);
+        if (!shown) {
+            FragmentManager fragmentManager = getFragmentManager();
+            WelcomeDialog welcomeDialog = new WelcomeDialog();
+            welcomeDialog.setArguments(args);
+            welcomeDialog.show(fragmentManager, "new_team");
+            shown = true;
+        } else {
+            Intent intent = new Intent(getApplicationContext(), RoadActivity.class);
+            intent.putExtra("name", chosenTeam);
+            startActivity(intent);
+        }
+
 
         // Get the question first to see if its a two or four answer one...
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");

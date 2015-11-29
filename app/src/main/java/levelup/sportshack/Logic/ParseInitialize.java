@@ -6,6 +6,8 @@ import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
 /**
  * Created by Andy W on 2015-11-27.
  */
@@ -21,5 +23,6 @@ public class ParseInitialize extends Application {
         ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
         testObject.saveInBackground();
+
     }
 }

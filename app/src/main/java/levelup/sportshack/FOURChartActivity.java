@@ -2,6 +2,7 @@ package levelup.sportshack;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,8 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import levelup.sportshack.Dialogs.BeerDialog;
+import levelup.sportshack.Dialogs.RewardDialog;
 import levelup.sportshack.Logic.ParseReceiver;
 
 /**
@@ -40,7 +43,7 @@ public class FOURChartActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chart_activity);
+        setContentView(R.layout.four_chart_activity);
         Intent previousIntent = getIntent();
         Bundle previousBunde = previousIntent.getExtras();
         game_id = previousBunde.getInt("game_id");
@@ -139,21 +142,11 @@ public class FOURChartActivity extends Activity {
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
 
-                new AlertDialog.Builder(FOURChartActivity.this)
-                        .setTitle("Congratulations!")
-                        .setNeutralButton("Continue", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (RoadActivity.triggered == false){
-                                    // continue
-                                    RoadActivity.triggered = true;
-                                    Intent intent = new Intent(getApplicationContext(), ProgressActivity.class);
-                                    startActivity(intent);
-                                    dialog.dismiss();
-                                    finish();
-                                }
-                            }
-                        })
-                        .show();
+                // SHOW THE BEER REWARD!
+                FragmentManager fragmentManager = getFragmentManager();
+                BeerDialog beerDialog = new BeerDialog();
+                beerDialog.show(fragmentManager, "new_beer");
+
                 Log.e("Timer", "finished");
             }
         }.start();

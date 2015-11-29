@@ -66,12 +66,16 @@
             android:label="ANSWER THIS QUESTION!" />
 
         <activity
-            android:name=".ChartActivity"
+            android:name=".TWOChartActivity"
             android:label="Question results!" />
 
         <activity
             android:name=".FOURChartActivity"
             android:label="Question results!" />
+
+        <activity
+            android:name=".ShopActivity"
+            android:label="Shop" />
 
         <activity
             android:name=".ProgressActivity"

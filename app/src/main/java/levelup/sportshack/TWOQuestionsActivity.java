@@ -1,14 +1,17 @@
 package levelup.sportshack;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.daimajia.easing.linear.Linear;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -24,6 +27,8 @@ import org.json.JSONObject;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import levelup.sportshack.Dialogs.HistoricalStatsDialog;
+import levelup.sportshack.Dialogs.WelcomeDialog;
 
 /**
  * Created by Andy W on 2015-11-28.
@@ -37,6 +42,7 @@ public class TWOQuestionsActivity extends Activity {
 
     TextView tv_question, tv_timer;
     CircleImageView btn_answer0, btn_answer1;
+    LinearLayout need_help;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,7 @@ public class TWOQuestionsActivity extends Activity {
         tv_question = (TextView)findViewById(R.id.question);
         btn_answer0 = (CircleImageView)findViewById(R.id.button0);
         btn_answer1 = (CircleImageView)findViewById(R.id.button1);
+        need_help = (LinearLayout)findViewById(R.id.need_help);
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");
@@ -65,11 +72,11 @@ public class TWOQuestionsActivity extends Activity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null){
+                if (e == null) {
 
                     // instead of getting all the parseobjects, we get only ONE parseobject according to the formula defined above
                     // (supposedly))
-                    for (final ParseObject parseObject : objects){
+                    for (final ParseObject parseObject : objects) {
                         question = parseObject.getString("question");
                         answer0 = parseObject.getString("answer0");
                         answer1 = parseObject.getString("answer1");
@@ -86,31 +93,34 @@ public class TWOQuestionsActivity extends Activity {
                         /* btn_answer0.setText(answer0);
                         btn_answer1.setText(answer1); */
 
-                        new CountDownTimer(timer*1000, 1000){
+                        new CountDownTimer(timer * 1000, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 tv_timer.setText(String.valueOf((millisUntilFinished / 1000)));
-                                currentTime = (int) (millisUntilFinished/1000);
+                                currentTime = (int) (millisUntilFinished / 1000);
                             }
 
                             @Override
                             public void onFinish() {
                                 if (active == true) {
                                     // Go to next screen.
-                                    Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                                    // For presentation purposes the code below is commented out
+                                    /*
+                                    Intent intent = new Intent(getApplicationContext(), TWOChartActivity.class);
                                     intent.putExtra("game_id", game_id);
                                     intent.putExtra("objectID", questionID);
                                     startActivity(intent);
                                     active = false;
                                     finish();
+                                    */
                                 } else {
-                                    //This means the user ran out of time
+                                    // This means the user ran out of time
+                                    // Lol below code doesn't even work what am i doing
                                     String newData = "trigger";
                                     Intent broadcastIntent = new Intent();
                                     broadcastIntent.setAction("ServiceToActivityAction");
                                     broadcastIntent.putExtra("ServiceToActivityKey", newData);
                                     sendBroadcast(broadcastIntent);
-
                                 }
                             }
                         }.start();
@@ -132,6 +142,15 @@ public class TWOQuestionsActivity extends Activity {
                         });
                     }
                 }
+            }
+        });
+
+        need_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                HistoricalStatsDialog historicalStatsDialog = new HistoricalStatsDialog();
+                historicalStatsDialog.show(fragmentManager, "historical_stats");
             }
         });
     }
@@ -205,7 +224,7 @@ public class TWOQuestionsActivity extends Activity {
                     parsePush.sendInBackground();
 
                     // Go to next screen.
-                    Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), TWOChartActivity.class);
                     intent.putExtra("game_id", game_id);
                     intent.putExtra("numberofanswers", numberofanswers);
                     intent.putExtra("objectID", questionID);

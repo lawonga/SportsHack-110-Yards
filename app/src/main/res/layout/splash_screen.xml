@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="@color/standardText"
+        android:textColor="@color/standardGrey"
         android:text="110"
         android:textSize="64dp"/>
     <TextView
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="YARDS"
-        android:textColor="@color/standardText"
+        android:textColor="@color/standardGrey"
         android:textSize="30dp"/>
     <TextView
         android:layout_marginTop="30dp"
@@ -26,6 +26,6 @@
         android:layout_height="wrap_content"
         android:text="The Canadian Way"
         android:textStyle="italic"
-        android:textColor="@color/standardText"
+        android:textColor="@color/standardGrey"
         android:textSize="24dp"/>
 </LinearLayout>

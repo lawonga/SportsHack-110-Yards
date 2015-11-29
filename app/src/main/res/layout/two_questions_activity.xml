@@ -28,25 +28,29 @@
     <!-- This is going to be the flippy card. We're gonna do it manually because HACKATHON -->
     <LinearLayout
         android:id="@+id/question_card"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="320dp"
+        android:layout_height="420dp"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:background="@color/whiteBackground">
+        android:background="@drawable/cardshadow">
 
         <TextView
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:text="GAME DAY QUESTION"
             android:textColor="@color/yellowBackground"
             android:textSize="36dp"
             android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/matthews"
             android:id="@+id/question_thumbnail"
             android:layout_width="147dp"
             android:layout_height="147dp"
@@ -59,25 +63,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="QUESTION_TEXT"
-            android:textSize="32dp" />
+            android:gravity="center_horizontal"
+            android:textSize="22dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="horizontal"
+            android:id="@+id/need_help">
 
             <!-- TODO Questionmark Imageview -->
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Need Help?"
-                android:textColor="@color/helpBlue" />
+                android:src="@drawable/gethelp"/>
+
+
         </LinearLayout>
 
     </LinearLayout>
@@ -92,17 +96,17 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/button0"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_marginRight="32dp"
-            android:src="@drawable/thumb1"/>
+            android:src="@drawable/yes"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/button1"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_marginLeft="32dp"
-            android:src="@drawable/thumb2"/>
+            android:src="@drawable/no"/>
 
     </LinearLayout>
 </LinearLayout>

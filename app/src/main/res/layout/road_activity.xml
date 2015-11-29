@@ -1,96 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/standardGrey">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
-<TextView
-    android:layout_marginTop="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Road to Championship"/>
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginLeft="68dp"
-                android:layout_marginTop="30dp"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:id="@+id/game4"
-                android:src="@drawable/thumb1"/>
-            <TextView
-                android:layout_marginTop="40dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/gametext4"
-                android:text="NOW LIVE \nPLAY NOW!"/>
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/whiteBackground"
+            android:text="SEASON 2015"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="30dp"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:id="@+id/game3"
-                android:src="@drawable/thumb1"/>
-            <TextView
-                android:layout_marginTop="40dp"
+            android:paddingTop="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/gametext3"
-                android:text="NOW LIVE \nPLAY NOW!"
-                android:visibility="gone"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="30dp"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:id="@+id/game2"
-                android:src="@drawable/thumb1"/>
-            <TextView
-                android:layout_marginTop="40dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@color/whiteBackground"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="November 29"
+                    android:textSize="12dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/group_copy"
+                    android:layout_marginTop="128dp" />
+                <TextView
+                    android:textColor="@color/whiteBackground"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="November 7"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="128dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/group_copy_3" />
+                <TextView
+                    android:textColor="@color/whiteBackground"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="October 26"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="128dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/group_copy_5" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/gametext2"
-                android:text="NOW LIVE \nPLAY NOW!"
-                android:visibility="gone"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="30dp"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:id="@+id/game1"
-                android:src="@drawable/thumb1"/>
-            <TextView
-                android:layout_marginTop="40dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/gametext1"
-                android:text="NOW LIVE \nPLAY NOW!"
-                android:visibility="gone"/>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/line" />
 
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/group"
+                    android:id="@+id/hotbox"/>
+
+                <TextView
+                    android:textColor="@color/whiteBackground"
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="November 15"
+                    android:textSize="12dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/group_copy_2"
+                    android:layout_marginTop="128dp" />
+                <TextView
+                    android:textColor="@color/whiteBackground"
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="October 30"
+                    android:textSize="12dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/group_copy_4"
+                    android:layout_marginTop="128dp"  />
+                <TextView
+                    android:textColor="@color/whiteBackground"
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="October 20"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
     </LinearLayout>
+
+
 </ScrollView>

@@ -10,10 +10,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -25,13 +25,14 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import levelup.sportshack.Logic.ParseReceiver;
 
 /**
  * Created by Andy W on 2015-11-28.
  */
-public class ChartActivity extends Activity {
+public class TWOChartActivity extends Activity {
     BarChart barChart;
     ParsePushBroadcastReceiver customReceiver;
     BroadcastReceiver answerReceiver;
@@ -47,7 +48,7 @@ public class ChartActivity extends Activity {
         game_id = previousBunde.getInt("game_id");
         numberofanswers = previousBunde.getInt("numberofanswers");
         object_id = previousBunde.getString("objectID");
-        timer = previousBunde.getInt("currentTime");
+        // timer = previousBunde.getInt("currentTime");
 
         // Add in the chart, and the properties
         barChart = (BarChart) findViewById(R.id.chart);
@@ -56,7 +57,16 @@ public class ChartActivity extends Activity {
         barChart.getAxisLeft().setDrawGridLines(false);
         barChart.getAxisRight().setDrawGridLines(false);
         barChart.getLegend().setEnabled(false);
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setDrawLabels(false);
+
+        YAxis rightAxis = barChart.getAxisRight();
+        rightAxis.setDrawLabels(false);
+
 
         // Set yes/no (Barlist)
         ArrayList<String> barlist = new ArrayList<>();
@@ -127,9 +137,30 @@ public class ChartActivity extends Activity {
         });
 
         // Add timer
-        new CountDownTimer(timer*1000, 1000){
+        new CountDownTimer(timer*1000, 250){
             @Override
             public void onTick(long millisUntilFinished) {
+                Random r = new Random();
+                int i1 = (r.nextInt(1 ) + 1);
+                int floatentry = 0;
+                if (i1 == 0){
+                    floatentry = points[0];
+                    points[0] += i1;
+                } else if (i1 == 1){
+                    floatentry = points[1];
+                    points[1] += i1;
+                }
+
+                BarEntry barEntry = new BarEntry(0,0);
+                // Update the thing
+                barEntry.setVal(floatentry + i1);
+                barEntry.setXIndex(i1);
+                // heightVal at 0 = NO, at 1 = YES
+                heightVal.set(i1, barEntry);
+                // ANIMATION MAY NOT WORK barChart.animateY(500, Easing.EasingOption.EaseInCirc);
+                barChart.notifyDataSetChanged();
+                barChart.invalidate();
+
             }
 
             @Override
@@ -141,7 +172,7 @@ public class ChartActivity extends Activity {
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
 
-                new AlertDialog.Builder(ChartActivity.this)
+                new AlertDialog.Builder(TWOChartActivity.this)
                         .setTitle("Congratulations!")
                         .setNeutralButton("Continue", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

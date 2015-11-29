@@ -18,7 +18,11 @@
         android:text="✕"
         android:textSize="24dp"
         android:textStyle="bold" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="30dp">
     <TextView
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
@@ -27,9 +31,8 @@
         android:text="REWARD"
         android:textSize="30dp"
         android:textColor="@color/yellowBackground"
-        android:id="@+id/textView3"
-        android:layout_alignTop="@+id/close_popup_reward"
-        android:layout_alignEnd="@+id/textView4" />
+        android:id="@+id/reward_header"
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_marginTop="10dp"
@@ -38,33 +41,43 @@
         android:text="UNLOCKED!"
         android:textSize="24dp"
         android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center" />
     
     <ImageView
+        android:src="@drawable/football"
         android:layout_marginTop="16dp"
         android:layout_width="164dp"
         android:layout_height="164dp"
         android:id="@+id/gift_image"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center" />
     <TextView
         android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get 25% off ALL jerseys!"
-        android:layout_below="@+id/gift_image"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:textSize="24dp"
-        android:id="@+id/textView2" />
+        android:gravity="center_horizontal"
+        android:id="@+id/reward_description"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/shop_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shop"
+        android:background="@drawable/roundedcorners"
+        android:layout_gravity="center"
+        android:layout_marginTop="41dp"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/reward_okay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OKAY!"
-        android:background="@color/yellowBackground"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
+        android:background="@drawable/roundedcorners"
+        android:layout_gravity="center"
         android:layout_marginTop="41dp" />
+</LinearLayout>
 </RelativeLayout>

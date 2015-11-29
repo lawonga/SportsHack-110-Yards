@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/red">
 
     <!-- PLACEHOLDER FOR PROGRESS BAR -->
 
@@ -26,7 +27,11 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:background="@drawable/cardshadow"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -40,10 +45,10 @@
 
             <ImageView
                 android:id="@+id/questions_image"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/thumb1" />
+                android:src="@drawable/molson" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,15 +58,26 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:id="@+id/question"/>
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gethelp"/>
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
 
             <Button
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/cardshadow"
                 android:id="@+id/button0"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -69,6 +85,10 @@
                 android:text="Button 1" />
 
             <Button
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/cardshadow"
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -84,6 +104,10 @@
             android:weightSum="2">
 
             <Button
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/cardshadow"
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -91,6 +115,10 @@
                 android:text="Button 3" />
 
             <Button
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/cardshadow"
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

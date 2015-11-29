@@ -6,6 +6,10 @@
         <item name="colorPrimary">#ffb614</item>
         <item name="colorPrimaryDark">#ffb614</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/OpenSansTextViewStyle</item>
     </style>
 
+    <style name="OpenSansTextViewStyle" parent="AppTheme">
+        <item name="fontPath">fonts/opensans-regular.ttf</item>
+    </style>
 </resources>

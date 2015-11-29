@@ -24,7 +24,7 @@ public class ParseReceiver extends ParsePushBroadcastReceiver {
             jsonObject = new JSONObject(data);
             point = jsonObject.getInt("point");
             answer = jsonObject.getInt("answer");
-            Intent sendIntent = new Intent("broadcast"); // broadcast is the name we're sending to ChartActivity and receiving from ChartActivity
+            Intent sendIntent = new Intent("broadcast"); // broadcast is the name we're sending to TWOChartActivity and receiving from TWOChartActivity
             sendIntent.putExtra("point", point);
             sendIntent.putExtra("answer", answer);
             context.sendBroadcast(sendIntent);

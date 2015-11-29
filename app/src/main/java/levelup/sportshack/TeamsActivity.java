@@ -20,7 +20,6 @@ import levelup.sportshack.Dialogs.WelcomeDialog;
 //TODO Added in Picasso, CircleImageView, AndroidViewAnimations libraries
 //TODO Implement these things
 public class TeamsActivity extends AppCompatActivity {
-    Boolean shown = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +57,7 @@ public class TeamsActivity extends AppCompatActivity {
 
             if (convertView == null) {
                 imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(160, 160));
+                imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             } else {
                 imageView = (ImageView) convertView;
@@ -67,20 +66,10 @@ public class TeamsActivity extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle args = new Bundle();
-                    args.putString("name", name[position]);
-                    args.putString("gift", gifts[position]);
-                    if (!shown) {
-                        FragmentManager fragmentManager = getFragmentManager();
-                        WelcomeDialog welcomeDialog = new WelcomeDialog();
-                        welcomeDialog.setArguments(args);
-                        welcomeDialog.show(fragmentManager, "new_team");
-                        shown = true;
-                    } else {
-                        Intent intent = new Intent(getApplicationContext(), RoadActivity.class);
-                        intent.putExtra("name", name[position]);
-                        startActivity(intent);
-                    }
+                    Intent intent = new Intent(getApplicationContext(), RoadActivity.class);
+                    intent.putExtra("name", name[position]);
+                    intent.putExtra("gift", gifts[position]);
+                    startActivity(intent);
                 }
             });
             return imageView;
@@ -88,15 +77,33 @@ public class TeamsActivity extends AppCompatActivity {
     }
 
     public Integer[] mThumbIds = {
-        R.drawable.thumb1, R.drawable.thumb2
+        R.drawable.oval_20_group, R.drawable.oval_20_copy_group,
+            R.drawable.oval_20_copy_2_group,
+            R.drawable.oval_20_copy_7_group,
+            R.drawable.oval_20_copy_4_group,
+            R.drawable.oval_20_copy_5_group,
+            R.drawable.oval_20_copy_6_group,
+            R.drawable.oval_20_copy_3_group,
+            R.drawable.ottawa_red_blacks
+
     };
 
     public String[] name = {
-        "TiCats", "Canucks"
+        "Saskatchewan Roughriders", "Tiger-Cats", "Winnipeg Bluebombers", "Toronto Agronauts",
+            "BC Lions", "Calgary Stampeders", "Edmonton Eskimos",
+            "Montreal Alouettes", "Ottawa Redblacks"
     };
 
     public String[] gifts = {
         "GET A 10% DISCOUNT ON A SEASON PASS",
-        "GET A 25% DISCOUNT ON YOUR BEER"
+            "GET 10% OFF ON THE SEASON PASS",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+            "GET A 25% DISCOUNT ON YOUR BEER",
+
     };
 }

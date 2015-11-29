@@ -44,15 +44,14 @@ public class ProgressActivity extends Activity {
         final ArrayList<BarEntry> heightVal = new ArrayList<>();
 
 
-        final BarEntry barEntry0 = new BarEntry(55, 0);
+        final BarEntry barEntry0 = new BarEntry(45, 0);
         heightVal.add(barEntry0);
 
         final BarDataSet barDataSet = new BarDataSet(heightVal, "Score"); // TODO Change 'Question' to something meaningful
         final ArrayList<BarDataSet> barArray = new ArrayList<>();
         barArray.add(barDataSet);
         final BarData barData = new BarData(barlist, barArray);
-        barDataSet.getColors().remove(0);
-        barDataSet.setColors(new int[]{R.color.whiteBackground});
+        barDataSet.setColor(getResources().getColor(R.color.whiteBackground));
         barChart.setDrawGridBackground(false);
         barChart.getXAxis().setDrawGridLines(false);
         barChart.getAxisLeft().setDrawGridLines(false);
@@ -62,7 +61,9 @@ public class ProgressActivity extends Activity {
         barChart.animateY(500, Easing.EasingOption.EaseInQuad);
         barChart.setVisibleYRangeMaximum(110, YAxis.AxisDependency.LEFT);
         barChart.setVisibleYRangeMaximum(110, YAxis.AxisDependency.RIGHT);
+        barChart.setScaleYEnabled(false);
         barChart.setDescription("");
+        barChart.setMaxVisibleValueCount(110);
         barChart.setData(barData);
 
 
