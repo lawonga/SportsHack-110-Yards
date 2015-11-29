@@ -102,7 +102,7 @@ public class FOURChartActivity extends Activity {
                         points[2] = object.getInt("point2");
                         points[3] = object.getInt("point3");
 
-                        for (int i = 0; i < points.length6; i++) {
+                        for (int i = 0; i < points.length; i++) {
                             Log.e("POINT", String.valueOf(points[i]));
                             BarEntry barEntry = new BarEntry(0, 0);
                             barEntry.setVal(points[i]);
