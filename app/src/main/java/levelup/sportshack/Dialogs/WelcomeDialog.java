@@ -22,7 +22,7 @@ public class WelcomeDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_card, container);
-        cancel = (TextView)view.findViewById(R.id.close_popup_team);
+        cancel = (TextView)view.findViewById(R.id.close_popup_reward);
         team_name = (TextView)view.findViewById(R.id.team_name);
         deal_text = (TextView)view.findViewById(R.id.deal);
 
@@ -39,14 +39,10 @@ public class WelcomeDialog extends DialogFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RoadActivity.class);
                 intent.putExtra("name", previousName);
-                getActivity().finish();
+                dismiss();
                 startActivity(intent);
             }
         });
-
-
-
-
         return view;
     }
 }

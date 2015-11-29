@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,12 +30,12 @@ import levelup.sportshack.Logic.ParseReceiver;
 /**
  * Created by Andy W on 2015-11-28.
  */
-public class ChartActivity extends Activity {
+public class FOURChartActivity extends Activity {
     BarChart barChart;
     ParsePushBroadcastReceiver customReceiver;
     BroadcastReceiver answerReceiver;
     int[] points = {0,0,0,0};
-    int game_id, numberofanswers, timer = 5;
+    int game_id, numberofanswers, timer = 10;
     String object_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,7 @@ public class ChartActivity extends Activity {
         Bundle previousBunde = previousIntent.getExtras();
         game_id = previousBunde.getInt("game_id");
         numberofanswers = previousBunde.getInt("numberofanswers");
-        object_id = previousBunde.getString("objectID");
-        timer = previousBunde.getInt("currentTime");
+        object_id = previousBunde.getString("objectId");
 
         // Add in the chart, and the properties
         barChart = (BarChart) findViewById(R.id.chart);
@@ -60,8 +58,10 @@ public class ChartActivity extends Activity {
 
         // Set yes/no (Barlist)
         ArrayList<String> barlist = new ArrayList<>();
-        barlist.add("Yes");
-        barlist.add("No");
+        barlist.add("Passport");
+        barlist.add("Fingerprint");
+        barlist.add("Loonie");
+        barlist.add("Beer Opener");
 
         // Set dataset (actual data)
         final ArrayList<BarEntry> heightVal = new ArrayList<>();
@@ -69,14 +69,12 @@ public class ChartActivity extends Activity {
         // BarEntry
         final BarEntry barEntry0 = new BarEntry(0, 0);
         final BarEntry barEntry1 = new BarEntry(0, 1);
+        final BarEntry barEntry2= new BarEntry(0, 2);
+        final BarEntry barEntry3 = new BarEntry(0, 3);
         heightVal.add(barEntry0);
         heightVal.add(barEntry1);
-        if (numberofanswers == 4){
-            final BarEntry barEntry2= new BarEntry(0, 2);
-            final BarEntry barEntry3 = new BarEntry(0, 3);
-            heightVal.add(barEntry2);
-            heightVal.add(barEntry3);
-        }
+        heightVal.add(barEntry2);
+        heightVal.add(barEntry3);
 
         // Grab from heightVal
         final BarDataSet barDataSet = new BarDataSet(heightVal, "Question"); // TODO Change 'Question' to something meaningful
@@ -91,7 +89,7 @@ public class ChartActivity extends Activity {
 
         // On run action: Grab data from the servers!
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");
-        query.whereEqualTo("game_id", game_id);
+        query.whereEqualTo("isactive", true);
         query.whereEqualTo("objectId", object_id);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -104,7 +102,8 @@ public class ChartActivity extends Activity {
                         points[2] = object.getInt("point2");
                         points[3] = object.getInt("point3");
 
-                        for (int i = 0; i < objects.size() + 1; i++) {
+                        for (int i = 0; i < points.length6; i++) {
+                            Log.e("POINT", String.valueOf(points[i]));
                             BarEntry barEntry = new BarEntry(0, 0);
                             barEntry.setVal(points[i]);
                             barEntry.setXIndex(i);
@@ -136,12 +135,11 @@ public class ChartActivity extends Activity {
             public void onFinish() {
                 // TODO make the stupid thing go red!
                 // For now we pop the thing up
-                barDataSet.getColors().remove(0);
-                barDataSet.setColors(new int[]{R.color.helpBlue, R.color.red});
+                barDataSet.setColors(new int[]{R.color.red, R.color.helpBlue, R.color.helpBlue, R.color.helpBlue});
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
 
-                new AlertDialog.Builder(ChartActivity.this)
+                new AlertDialog.Builder(FOURChartActivity.this)
                         .setTitle("Congratulations!")
                         .setNeutralButton("Continue", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

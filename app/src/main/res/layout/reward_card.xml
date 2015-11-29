@@ -20,50 +20,51 @@
         android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/close_popup_reward"
-        android:layout_centerHorizontal="true"
-        android:text="Welcome to the Home of the"
-        android:textSize="18dp"
-        android:textColor="@color/yellowBackground"
-        android:id="@+id/textView" />
-
-    <TextView
-        android:id="@+id/team_name"
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="TEAM_NAME"
-        android:textSize="32dp"
-        android:layout_below="@+id/textView"
+        android:text="REWARD"
+        android:textSize="30dp"
+        android:textColor="@color/yellowBackground"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/close_popup_reward"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UNLOCKED!"
+        android:textSize="24dp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true" />
     
     <ImageView
+        android:layout_marginTop="16dp"
         android:layout_width="164dp"
         android:layout_height="164dp"
         android:id="@+id/gift_image"
-        android:layout_below="@+id/team_name"
+        android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true" />
     <TextView
         android:layout_marginTop="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="As a welcome gift..."
+        android:text="Get 25% off ALL jerseys!"
         android:layout_below="@+id/gift_image"
         android:layout_centerHorizontal="true"
+        android:textSize="24dp"
         android:id="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/deal"
+    <Button
+        android:id="@+id/reward_okay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DISCOUNT_TEXT"
-        android:textSize="16dp"
+        android:text="OKAY!"
+        android:background="@color/yellowBackground"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="48dp"/>
+        android:layout_marginTop="41dp" />
 </RelativeLayout>

@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
@@ -27,23 +26,19 @@ import java.util.List;
 /**
  * Created by Andy W on 2015-11-27.
  */
-public class QuestionsActivity extends Activity {
+public class FOURQuestionsActivity extends Activity {
     String answer0, answer1, answer2, answer3, question, team, questionID;
     int game_id, timer,
             position, // Position means the current position of button
-            point0, point1, point2, point3, numberofanswers;
+            point0, point1, point2, point3;
 
     TextView tv_question, tv_timer;
     Button btn_answer0, btn_answer1, btn_answer2, btn_answer3;
+    Boolean active = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.questions_activity);
-
-        //Get data from previous activity
-        Intent previousIntent = getIntent();
-        Bundle previousBunde = previousIntent.getExtras();
-        game_id = previousBunde.getInt("game_id");
+        setContentView(R.layout.four_questions_activity);
 
         //Initialize
         tv_timer = (TextView) findViewById(R.id.timer);
@@ -55,13 +50,12 @@ public class QuestionsActivity extends Activity {
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");
-
         /*TODO Should query the questions based on a very complex formula.
-        TODO This stuff really should be on the server side, but for the purpose of the hackathonw we're gonna put everything IN HERE LOL
-        TODO Need to implement a way of keeping track of the question number answered*/
+        TODO This stuff really should be on the server side, but for the purpose of the hackathon we're gonna put everything IN HERE LOL*/
         /** right now, it is by game_id
-         * Later on, add in depending on ParseUser. have ParseUser tracked questions answer**/
-        query.whereEqualTo("game_id", game_id);
+         * Later on, add in depending on ParseUser. have ParseUser track questions answered**/
+        query.whereEqualTo("isactive", true);
+        query.whereEqualTo("numberofanswers", 4);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -100,11 +94,17 @@ public class QuestionsActivity extends Activity {
 
                             @Override
                             public void onFinish() {
-                                // Go to next screen.
-                                Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
-                                intent.putExtra("game_id", game_id);
-                                startActivity(intent);
-                                finish();
+                                if (!active) {
+                                    // Go to next screen.
+                                    Intent intent = new Intent(getApplicationContext(), FOURChartActivity.class);
+                                    intent.putExtra("numberofanswers", 4);
+                                    intent.putExtra("game_id", game_id);
+                                    intent.putExtra("objectId", questionID);
+                                    active = true;
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                active = true;
                             }
                         }.start();
 
@@ -212,9 +212,12 @@ public class QuestionsActivity extends Activity {
                     parsePush.sendInBackground();
 
                     // Go to next screen.
-                    Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), FOURChartActivity.class);
                     intent.putExtra("game_id", game_id);
+                    intent.putExtra("objectId", questionID);
+                    intent.putExtra("numberofanswers", 4);
                     startActivity(intent);
+                    active = true;
                     finish();
                 } catch (ParseException g) {
                     g.printStackTrace();

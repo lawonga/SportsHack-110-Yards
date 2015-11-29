@@ -20,6 +20,7 @@ import levelup.sportshack.Dialogs.WelcomeDialog;
 //TODO Added in Picasso, CircleImageView, AndroidViewAnimations libraries
 //TODO Implement these things
 public class TeamsActivity extends AppCompatActivity {
+    Boolean shown = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +70,17 @@ public class TeamsActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putString("name", name[position]);
                     args.putString("gift", gifts[position]);
-                    FragmentManager fragmentManager = getFragmentManager();
-                    WelcomeDialog welcomeDialog = new WelcomeDialog();
-                    welcomeDialog.setArguments(args);
-                    welcomeDialog.show(fragmentManager, "new_team");
+                    if (!shown) {
+                        FragmentManager fragmentManager = getFragmentManager();
+                        WelcomeDialog welcomeDialog = new WelcomeDialog();
+                        welcomeDialog.setArguments(args);
+                        welcomeDialog.show(fragmentManager, "new_team");
+                        shown = true;
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), RoadActivity.class);
+                        intent.putExtra("name", name[position]);
+                        startActivity(intent);
+                    }
                 }
             });
             return imageView;

@@ -6,25 +6,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Awaiting Results"
-        android:textSize="24dp"/>
-    <LinearLayout
-        android:layout_margin="36dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whiteBackground"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:text="Points to TOUCHDOWN!"
+        android:textSize="30dp"
+        android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="24dp"
-        android:text="AUDIENCE PREDICTION"/>
+        android:textSize="40dp"
+        android:text="+10 Yards"
+        android:textColor="@color/whiteBackground"
+        android:layout_gravity="center"/>
     <com.github.mikephil.charting.charts.BarChart
+        android:layout_gravity="center"
         android:id="@+id/chart"
-        android:layout_width="match_parent"
+        android:layout_width="64dp"
         android:layout_height="match_parent" />
-    </LinearLayout>
 </LinearLayout>

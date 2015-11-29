@@ -58,17 +58,29 @@
             android:label="Pick your ROAD!" />
 
         <activity
-            android:name=".QuestionsActivity"
+            android:name=".FOURQuestionsActivity"
+            android:label="ANSWER THIS QUESTION!" />
+
+        <activity
+            android:name=".TWOQuestionsActivity"
             android:label="ANSWER THIS QUESTION!" />
 
         <activity
             android:name=".ChartActivity"
             android:label="Question results!" />
 
+        <activity
+            android:name=".FOURChartActivity"
+            android:label="Question results!" />
+
+        <activity
+            android:name=".ProgressActivity"
+            android:label="Your current progress" />
+
         <service android:name="com.parse.PushService" />
         <!-- OVERRIDE THIS FOR PUSH BROADCAST RECEIVER -->
         <receiver
-            android:name=".Logic.CustomReceiver"
+            android:name=".Logic.ParseReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -89,6 +101,14 @@
                 <category android:name="levelup.sportshack" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".Logic.AnswerReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" >
+                </action>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

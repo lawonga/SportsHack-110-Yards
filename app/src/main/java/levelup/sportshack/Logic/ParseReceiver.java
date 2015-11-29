@@ -14,7 +14,7 @@ import org.json.JSONObject;
 /**
  * Created by Andy W on 2015-11-28.
  */
-public class CustomReceiver extends ParsePushBroadcastReceiver {
+public class ParseReceiver extends ParsePushBroadcastReceiver {
     JSONObject jsonObject;
     int point, answer;
     @Override
