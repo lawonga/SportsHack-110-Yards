@@ -58,7 +58,7 @@
 
         <service android:name="com.parse.PushService" />
         <!-- OVERRIDE THIS FOR PUSH BROADCAST RECEIVER -->
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+        <receiver android:name=".Logic.CustomReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />

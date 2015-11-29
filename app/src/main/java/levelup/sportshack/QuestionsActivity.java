@@ -3,14 +3,23 @@ package levelup.sportshack;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -18,9 +27,11 @@ import java.util.List;
  * Created by Andy W on 2015-11-27.
  */
 public class QuestionsActivity extends Activity {
-    String answer0, answer1, answer2, answer3, question, team;
-    int game_id, timer, correctanswer,
-            position; // Position means the current position of button
+    String answer0, answer1, answer2, answer3, question, team, questionID;
+    int game_id, timer,
+            position, // Position means the current position of button
+            point0, point1, point2, point3, numberofanswers;
+
     TextView tv_question, tv_timer;
     Button btn_answer0, btn_answer1, btn_answer2, btn_answer3;
     @Override
@@ -57,7 +68,7 @@ public class QuestionsActivity extends Activity {
 
                     // instead of getting all the parseobjects, we get only ONE parseobject according to the formula defined above
                     // (supposedly))
-                    for (ParseObject parseObject : objects){
+                    for (final ParseObject parseObject : objects){
                         question = parseObject.getString("question");
                         answer0 = parseObject.getString("answer0");
                         answer1 = parseObject.getString("answer1");
@@ -65,8 +76,11 @@ public class QuestionsActivity extends Activity {
                         answer3 = parseObject.getString("answer3");
                         team = parseObject.getString("team");
                         timer = parseObject.getInt("timer");
-
-                        correctanswer = parseObject.getInt("correctanswer");
+                        questionID = parseObject.getObjectId();
+                        point0 = parseObject.getInt("point0");
+                        point1 = parseObject.getInt("point1");
+                        point2 = parseObject.getInt("point2");
+                        point3 = parseObject.getInt("point3");
 
                         // SET the stuff after getting it, DUH!
                         tv_timer.setText(String.valueOf(timer));
@@ -81,28 +95,28 @@ public class QuestionsActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 position = 0;
-                                answerLogic(position);
+                                answerLogic(position, parseObject);
                             }
                         });
                         btn_answer1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 position = 1;
-                                answerLogic(position);
+                                answerLogic(position, parseObject);
                             }
                         });
                         btn_answer2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 position = 2;
-                                answerLogic(position);
+                                answerLogic(position, parseObject);
                             }
                         });
                         btn_answer3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 position = 3;
-                                answerLogic(position);
+                                answerLogic(position, parseObject);
                             }
                         });
 
@@ -112,11 +126,67 @@ public class QuestionsActivity extends Activity {
         });
     }
 
-    public void answerLogic(int position){
-        // Get position clicked. Upload data to server. Push to other devices.
+    public void answerLogic(int position, ParseObject parseObject){
+        int pointworth = 5;
+        // Get position clicked. Upload data to server in user's history.
+        ParseUser parseUser = ParseUser.getCurrentUser();
 
-        // Go to next screen.
-        Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
-        startActivity(intent);
+        // Create object player answer
+        ParseObject playerObject = new ParseObject("PlayerAnswer");
+        playerObject.put("questionID", questionID);
+        playerObject.put("answer", position);
+
+        // Create relation question ID
+        ParseRelation<ParseObject> parseRelation = parseUser.getRelation("questionID");
+        parseRelation.add(playerObject);
+
+        parseUser.put("questionKey", playerObject);
+        parseUser.saveInBackground();
+
+        // Get position clicked. Upload data to server in the question to track points
+        if (position == 0){
+            parseObject.put("point0", point0 += pointworth);
+        } else if (position == 1){
+            parseObject.put("point1", point1 += pointworth);
+        } else if (position == 2){
+            parseObject.put("point2", point2 += pointworth);
+        } else if (position == 3){
+            parseObject.put("point3", point3 += pointworth);
+        }
+        parseObject.saveInBackground();
+
+        // Push to other devices.
+        ParsePush parsePush = new ParsePush();
+
+        // Lets not push to self...
+        // Associate the device with a user
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        installation.put("user",ParseUser.getCurrentUser());
+        try {
+            installation.save();
+            ParseQuery pushQuery = ParseInstallation.getQuery();
+            pushQuery.whereNotEqualTo("objectId", ParseUser.getCurrentUser());
+
+            // Create JSONObject
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("answer", position);
+                jsonObject.put("point", pointworth);
+                jsonObject.put("questionID", questionID);
+                jsonObject.put("team", team);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            parsePush.setData(jsonObject);
+            parsePush.setQuery(pushQuery);
+            parsePush.sendInBackground();
+
+            // Go to next screen.
+            Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+            startActivity(intent);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.e("PushError", e.toString());
+        }
     }
 }
