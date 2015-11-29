@@ -54,7 +54,19 @@ public class ChartActivity extends Activity {
         heightVal.add(barrEntry0);
         heightVal.add(barEntry1);
 
-        // Grab data from the servers!
+        // Grab from heightVal
+        BarDataSet barDataSet = new BarDataSet(heightVal, "Question"); // TODO Change 'Question' to something meaningful
+
+        // Create bar array, set barDataSet with the yVals with the {BarEntry} in
+        ArrayList<BarDataSet> barArray = new ArrayList<>();
+        barArray.add(barDataSet);
+
+        BarData barData = new BarData(barlist, barArray);
+
+        barChart.setAutoScaleMinMaxEnabled(true);
+        barChart.setData(barData);
+
+        // On run action: Grab data from the servers!
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -66,7 +78,7 @@ public class ChartActivity extends Activity {
                         points[2] = object.getInt("point2");
                         points[3] = object.getInt("point3");
 
-                        for (int i=0; i<4; i++) {
+                        for (int i = 0; i < 4; i++) {
                             BarEntry barEntry = new BarEntry(0, 0);
                             barEntry.setVal(points[i]);
                             barEntry.setXIndex(i);
@@ -80,26 +92,12 @@ public class ChartActivity extends Activity {
                             }
                         }
 
-                        barChart.setAutoScaleMinMaxEnabled(true);
                         barChart.notifyDataSetChanged();
                         barChart.invalidate();
                     }
                 }
             }
         });
-
-        // Grab from heightVal
-        BarDataSet barDataSet = new BarDataSet(heightVal, "Question"); // TODO Change 'Question' to something meaningful
-
-        // Create bar array, set barDataSet with the yVals with the {BarEntry} in
-        ArrayList<BarDataSet> barArray = new ArrayList<>();
-        barArray.add(barDataSet);
-
-        BarData barData = new BarData(barlist, barArray);
-
-
-        barChart.setData(barData);
-
 
         // Build the Receiver also known as CustomReceiver which extends from ParsePushBroadcastReceiver!!!
         customReceiver = new CustomReceiver() {
@@ -108,11 +106,13 @@ public class ChartActivity extends Activity {
                 Bundle bundle = intent.getExtras();
                 int pointschanged = bundle.getInt("point");
                 int answerchanged = bundle.getInt("answer");
-                Float floatentry = null;
+                int floatentry = 0;
                 if (answerchanged == 0){
-                    floatentry = barrEntry0.getVal();
+                    floatentry = points[0];
+                    points[0] += pointschanged;
                 } else if (answerchanged == 1){
-                    floatentry = barEntry1.getVal();
+                    floatentry = points[1];
+                    points[1] += pointschanged;
                 }
                 BarEntry barEntry = new BarEntry(0,0);
                 // Update the thing
@@ -120,9 +120,6 @@ public class ChartActivity extends Activity {
                 barEntry.setXIndex(answerchanged);
                 // heightVal at 0 = NO, at 1 = YES
                 heightVal.set(answerchanged, barEntry);
-
-
-
                 barChart.notifyDataSetChanged();
                 barChart.invalidate();
             }

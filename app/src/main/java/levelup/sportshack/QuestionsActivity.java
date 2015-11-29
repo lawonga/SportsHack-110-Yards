@@ -95,28 +95,28 @@ public class QuestionsActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 position = 0;
-                                answerLogic(position, parseObject);
+                                answerLogic(position);
                             }
                         });
                         btn_answer1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 position = 1;
-                                answerLogic(position, parseObject);
+                                answerLogic(position);
                             }
                         });
                         btn_answer2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 position = 2;
-                                answerLogic(position, parseObject);
+                                answerLogic(position);
                             }
                         });
                         btn_answer3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 position = 3;
-                                answerLogic(position, parseObject);
+                                answerLogic(position);
                             }
                         });
 
@@ -126,8 +126,8 @@ public class QuestionsActivity extends Activity {
         });
     }
 
-    public void answerLogic(int position, ParseObject parseObject){
-        int pointworth = 5;
+    public void answerLogic(final int position){
+        final int pointworth = 5;
         // Get position clicked. Upload data to server in user's history.
         ParseUser parseUser = ParseUser.getCurrentUser();
 
@@ -143,50 +143,64 @@ public class QuestionsActivity extends Activity {
         parseUser.put("questionKey", playerObject);
         parseUser.saveInBackground();
 
-        // Get position clicked. Upload data to server in the question to track points
-        if (position == 0){
-            parseObject.put("point0", point0 += pointworth);
-        } else if (position == 1){
-            parseObject.put("point1", point1 += pointworth);
-        } else if (position == 2){
-            parseObject.put("point2", point2 += pointworth);
-        } else if (position == 3){
-            parseObject.put("point3", point3 += pointworth);
-        }
-        parseObject.saveInBackground();
+        // Do a second query to update the score PROPERLY
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Questionbank");
+        query.whereEqualTo("game_id", game_id);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                for (ParseObject parseObject : objects) {
+                    point0 = parseObject.getInt("point0");
+                    point1 = parseObject.getInt("point1");
+                    point2 = parseObject.getInt("point2");
+                    point3 = parseObject.getInt("point3");
+                    // Get position clicked. Upload data to server in the question to track points
+                    if (position == 0) {
+                        parseObject.put("point0", point0 += pointworth);
+                    } else if (position == 1) {
+                        parseObject.put("point1", point1 += pointworth);
+                    } else if (position == 2) {
+                        parseObject.put("point2", point2 += pointworth);
+                    } else if (position == 3) {
+                        parseObject.put("point3", point3 += pointworth);
+                    }
+                    parseObject.saveInBackground();
+                }
 
-        // Push to other devices.
-        ParsePush parsePush = new ParsePush();
+                // Push to other devices.
+                ParsePush parsePush = new ParsePush();
 
-        // Lets not push to self...
-        // Associate the device with a user
-        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-        installation.put("user",ParseUser.getCurrentUser());
-        try {
-            installation.save();
-            ParseQuery pushQuery = ParseInstallation.getQuery();
-            pushQuery.whereNotEqualTo("objectId", ParseUser.getCurrentUser());
+                // Lets not push to self... EDIT Pushing to self is OK!
+                // Associate the device with a user
+                ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                installation.put("user", ParseUser.getCurrentUser());
+                try {
+                    installation.save();
+                    ParseQuery pushQuery = ParseInstallation.getQuery();
+                    pushQuery.whereNotEqualTo("user", ParseUser.getCurrentUser());
 
-            // Create JSONObject
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("answer", position);
-                jsonObject.put("point", pointworth);
-                jsonObject.put("questionID", questionID);
-                jsonObject.put("team", team);
-            } catch (JSONException e) {
-                e.printStackTrace();
+                    // Create JSONObject
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("answer", position);
+                        jsonObject.put("point", pointworth);
+                        jsonObject.put("questionID", questionID);
+                        jsonObject.put("team", team);
+                    } catch (JSONException f) {
+                        f.printStackTrace();
+                    }
+                    parsePush.setData(jsonObject);
+                    parsePush.setQuery(pushQuery);
+                    parsePush.sendInBackground();
+
+                    // Go to next screen.
+                    Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                    startActivity(intent);
+                } catch (ParseException g) {
+                    g.printStackTrace();
+                    Log.e("PushError", e.toString());
+                }
             }
-            parsePush.setData(jsonObject);
-            parsePush.setQuery(pushQuery);
-            parsePush.sendInBackground();
-
-            // Go to next screen.
-            Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
-            startActivity(intent);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.e("PushError", e.toString());
-        }
+        });
     }
 }
